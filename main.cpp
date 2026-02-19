@@ -17,8 +17,11 @@ int main() {
 
 void populateArray(string fileLoaction){
     ifstream inputFile;
+    string text;
     inputFile.open(fileLoaction);
     if (!inputFile.good()){
+        cout << "File was not found!\n";
         return;
     }
+    while (getline(fileLoaction, text))
 }
