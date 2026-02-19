@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <array>
 using namespace std;
 
 void populateArray(string);
@@ -23,5 +24,7 @@ void populateArray(string fileLoaction){
         cout << "File was not found!\n";
         return;
     }
-    while (getline(fileLoaction, text))
+    while (getline(inputFile, text)){
+        cout << text;
+    }
 }
