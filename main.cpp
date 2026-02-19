@@ -1,9 +1,11 @@
 // COMSC-210 | Lab 12 | Johnathan Perez Baltazar
 
 #include <iostream>
+#include <fstream>
 using namespace std;
 
-// Function Prototypes:
+void populateArray(string);
+void sortArray();
 
 /**
  * @brief - Description of main
@@ -13,7 +15,10 @@ int main() {
     return 0;
 }
 
-// Function Definitions:
-
-// Reminder lines must be 80 characters or less, no more than one empty line, no magic numbers,
-// and Reminder to comment code where neccessary.
+void populateArray(string fileLoaction){
+    ifstream inputFile;
+    inputFile.open(fileLoaction);
+    if (!inputFile.good()){
+        return;
+    }
+}
