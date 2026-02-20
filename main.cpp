@@ -5,7 +5,6 @@
 #include <array>
 using namespace std;
 
-int getArraySize();
 void populateArray(string);
 void sortArray();
 
@@ -19,11 +18,7 @@ int main() {
     return 0;
 }
 
-int getArraySize(){
-    
-}
-
-void populateArray(string fileLoaction){
+array<string, SIZE> populateArray(string fileLoaction){
     ifstream inputFile;
     string text;
     array<string, SIZE> textArray;
@@ -35,4 +30,5 @@ void populateArray(string fileLoaction){
     while (getline(inputFile, text)){
         cout << text;
     }
+    r
 }
