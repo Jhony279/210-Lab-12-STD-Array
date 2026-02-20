@@ -15,20 +15,23 @@ const int SIZE = 10;
  * @return 
 */
 int main() {
+    array<string, SIZE> textArray;
     return 0;
 }
 
-array<string, SIZE> populateArray(string fileLoaction){
+void populateArray(string fileLoaction, array<string, SIZE>& textArray){
     ifstream inputFile;
     string text;
-    array<string, SIZE> textArray;
+    // array<string, SIZE> textArray;
     inputFile.open(fileLoaction);
     if (!inputFile.good()){
         cout << "File was not found!\n";
         return;
     }
-    while (getline(inputFile, text)){
-        cout << text;
+    int i = 0;
+    while (getline(inputFile, text) && i < SIZE){
+        textArray[i] = text;
+        // cout << "inserting"<< text << endl;
+        i++;
     }
-    r
 }
