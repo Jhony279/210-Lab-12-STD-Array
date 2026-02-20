@@ -5,8 +5,11 @@
 #include <array>
 using namespace std;
 
+int getArraySize();
 void populateArray(string);
 void sortArray();
+
+const int SIZE = 10;
 
 /**
  * @brief - Description of main
@@ -16,9 +19,14 @@ int main() {
     return 0;
 }
 
+int getArraySize(){
+    
+}
+
 void populateArray(string fileLoaction){
     ifstream inputFile;
     string text;
+    array<string, SIZE> textArray;
     inputFile.open(fileLoaction);
     if (!inputFile.good()){
         cout << "File was not found!\n";
