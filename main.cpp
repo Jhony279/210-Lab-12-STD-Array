@@ -8,11 +8,12 @@
 using namespace std;
 
 const int SIZE = 30;
+const int INV_ARG = 100;
 const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
 
 void populateArray(string, array<double, SIZE>&, array<string, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
-void sortArray(array<double, SIZE>&);
+void displayInvalidArray(array<string, SIZE>&);
 
 /**
  * @brief - Description of main
@@ -92,4 +93,8 @@ void displayArrayInfo(array<double, SIZE>& lArray){
         << *min_element(lArray.begin(), lArray.end()) << "°F" << endl;
     cout << "  Average temperature in the month: " 
         << accumulate(lArray.begin(), lArray.end(), 0.0)/lArray.size() << "°F" << endl;
+}
+
+void displayInvalidArray(array<string, SIZE>& invArray){
+    cout << "\n--- Invalid Data ---";
 }
