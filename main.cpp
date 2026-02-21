@@ -10,7 +10,7 @@ using namespace std;
 const int SIZE = 30;
 const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
 
-void populateArray(string, array<double, SIZE>&);
+void populateArray(string, array<double, SIZE>&, array<string, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
 void sortArray(array<double, SIZE>&);
 
@@ -20,24 +20,24 @@ void sortArray(array<double, SIZE>&);
 */
 int main() {
     array<double, SIZE> tempArray;
-    array<double, SIZE> iArgArray;
+    array<string, SIZE> iArgArray;
     fill(tempArray.begin(), tempArray.end(), 0.0);
-    fill(iArgArray.begin(), iArgArray.end(), 0.0);
+    fill(iArgArray.begin(), iArgArray.end(), "");
 
-    populateArray(FILE_LOCATION, tempArray);
+    populateArray(FILE_LOCATION, tempArray, iArgArray);
     displayArrayInfo(tempArray);
 
     return 0;
 }
 
-void populateArray(string fileLoaction, array<double, SIZE>& lArray){
+void populateArray(string fileLoaction, array<double, SIZE>& lArray, array<string, SIZE>& iArgArray){
     ifstream inputFile;
     string text;
     
     inputFile.open(fileLoaction);
     if (inputFile.good()){
         static int i = 0;
-        static int lineCount = 0;
+        static int lineCount = 1;
         static double nText = 0;
         while (getline(inputFile, text) && i < lArray.size()){
             // If Line is empty, skip to next iteration
@@ -49,14 +49,15 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
             try {
                 nText = stod(text);
             } catch (const invalid_argument& e) {
-                cout << "Invalid data inside file: " << fileLoaction << endl;
-                cout << " Invalid Data: " << text << endl;
-                cout << "Line Count: " << lineCount << endl;
+                if (lineCount < SIZE){
+                    iArgArray.at(lineCount) = text;
+                }
                 lineCount++;
                 continue;
             }
             // If line is valid, add to array
             lArray.at(i) = nText;
+            lineCount++;
             i++;
         }
     } else{
