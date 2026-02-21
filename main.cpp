@@ -5,7 +5,7 @@
 #include <array>
 using namespace std;
 
-const int SIZE = 10;
+const int SIZE = 30;
 const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
 
 void populateArray(string, array<string, SIZE>&);
@@ -32,8 +32,7 @@ void populateArray(string fileLoaction, array<string, SIZE>& textArray){
     if (inputFile.good()){
         int i = 0;
         while (getline(inputFile, text) && i < SIZE){
-            textArray[i] = text;
-            // cout << "inserting"<< text << endl;
+            textArray.at(i) = text;
             i++;
         }
     } else{
