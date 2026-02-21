@@ -133,7 +133,7 @@ void displayInvalidArray(array<string, SIZE>& invArray, array<int, SIZE>& iArray
     static int i = 0;
     // loop throguh invalid data array and display data and line number of each entry
     for (string data : invArray){
-        // If data is empty, skip to next entry
+        // If data is empty skip to next entry
         if (data == ""){
             continue;
         }
