@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <numeric>  
 #include <array>
 using namespace std;
 
@@ -31,8 +33,8 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
     
     inputFile.open(fileLoaction);
     if (inputFile.good()){
-        int i = 0;
-        double nText = 0;
+        static int i = 0;
+        static double nText = 0;
         while (getline(inputFile, text) && i < lArray.size()){
             // If Line is empty, skip to next iteration
             if (text.empty()){
@@ -58,10 +60,20 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
 }
 
 void displayArrayInfo(array<double, SIZE>& lArray){
-    cout << "--- Unsorted array (Raw Data) ---\n";
+    // End function if array is empty
     if (lArray.empty()){
         cout << "Array is empty!" << endl;
         return;
     }
-    for (double value : lArray) cout << value << endl;
+
+    cout << "--- Unsorted array (Raw Data) ---\n";
+    
+    for (double value : lArray) cout << value << ", ";
+
+    cout << "  Hottest day: " 
+        << *max_element(lArray.begin(), lArray.end()) << endl;
+    cout << "  Coldest day: " 
+        << *min_element(lArray.begin(), lArray.end()) << endl;
+    cout << "  Average temperature in the month: " 
+        << accumulate(lArray.begin(), lArray.end(), 0.0) / lArray.size() << endl;
 }
