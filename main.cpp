@@ -8,7 +8,7 @@
 using namespace std;
 
 const int SIZE = 30;
-const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
+const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.xt";
 
 void populateArray(string, array<double, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
@@ -53,10 +53,11 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
             i++;
         }
     } else{
-        cout << "File was not found!";
+        cout << "\n!File was not found!" << endl;
+        cout << endl;
         return;
     }
-    cout << " " << endl;
+    cout << endl;
 }
 
 void displayArrayInfo(array<double, SIZE>& lArray){
@@ -67,9 +68,11 @@ void displayArrayInfo(array<double, SIZE>& lArray){
     }
 
     cout << "--- Unsorted array (Raw Data) ---\n";
-    static int i =0;
+    static int i = 0;
     for (double value : lArray) {
-        cout << "Week " << i + 1 << ": ";
+        if (i % 7 == 0) {
+            cout << "Week " << i / 7 + 1 << ": ";
+        }
         cout << value << ", ";
         i++;
         if (i % 7 == 0) {
