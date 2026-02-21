@@ -67,9 +67,15 @@ void displayArrayInfo(array<double, SIZE>& lArray){
     }
 
     cout << "--- Unsorted array (Raw Data) ---\n";
-    
-    for (double value : lArray) cout << value << ", ";
-
+    static int i =0;
+    for (double value : lArray) {
+        cout << "Week " << i + 1 << ": ";
+        cout << value << ", ";
+        i++;
+        if (i % 7 == 0) {
+            cout << "\n";
+        }
+    };
     cout << "  Hottest day: " 
         << *max_element(lArray.begin(), lArray.end()) << endl;
     cout << "  Coldest day: " 
