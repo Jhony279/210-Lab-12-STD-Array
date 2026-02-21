@@ -8,15 +8,16 @@
 using namespace std;
 
 const int SIZE = 30;
-const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
+const string FILE_LOCATION = "C:\\Users\\lordj\\COMSC-210\\projects\\210-lab-12\\text.txt";
 
 void populateArray(string, array<double, SIZE>&, array<string, SIZE>&, array<int, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
 void displayInvalidArray(array<string, SIZE>&, array<int, SIZE>&);
 
 /**
- * @brief Reads a text file, populates an array with it while keeping track of invalid 
- *        entries and their line, then displays the array data and invalid entries.
+ * @brief Reads a text file filled with temperature data, populates an array with it
+ *        while keeping track of invalid entries and their line, then displays the array
+ *        data and invalid entries.
 */
 int main() {
     // The array to hold the data
@@ -73,7 +74,7 @@ void populateArray(string fileLoaction, array<double, SIZE>& tArray, array<strin
                     j++;
                 }
                 lineCount++;
-                continue;
+                // continue;
             }
             // If line is valid, add to array
             tArray.at(i) = nText;
@@ -101,12 +102,15 @@ void displayArrayInfo(array<double, SIZE>& tArray){
 
     cout << "--- Temperature (F°) Array Data ---\n";
     static int week = 0;
+    // loop through array and display data
     for (int j : tArray) {
+        // Display week number at the start of each week
         if (week % 7 == 0) {
             cout << "Week " << week / 7 + 1 << ": ";
         }
         cout << j << ", ";
         week++;
+        // If week is over, start new line
         if (week % 7 == 0) {
             cout << "\n";
         }
@@ -127,7 +131,9 @@ void displayArrayInfo(array<double, SIZE>& tArray){
 void displayInvalidArray(array<string, SIZE>& invArray, array<int, SIZE>& iArray){
     cout << "\n--- Invalid Data ---" << endl;
     static int i = 0;
+    // loop throguh invalid data array and display data and line number of each entry
     for (string data : invArray){
+        // If data is empty, skip to next entry
         if (data == ""){
             continue;
         }
