@@ -11,7 +11,7 @@ const int SIZE = 30;
 const int INV_ARG = 100;
 const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
 
-void populateArray(string, array<double, SIZE>&, array<string, SIZE>&);
+void populateArray(string, array<double, SIZE>&, array<string, SIZE>&, array<int, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
 void displayInvalidArray(array<string, SIZE>&);
 
@@ -21,26 +21,29 @@ void displayInvalidArray(array<string, SIZE>&);
 */
 int main() {
     array<double, SIZE> tempArray;
-    array<string, SIZE> iArgArray;
     fill(tempArray.begin(), tempArray.end(), 0.0);
+    array<string, SIZE> iArgArray;
     fill(iArgArray.begin(), iArgArray.end(), "");
+    array<int, SIZE> lineArray;
+    fill(lineArray.begin(), lineArray.end(), 0);
 
-    populateArray(FILE_LOCATION, tempArray, iArgArray);
+    populateArray(FILE_LOCATION, tempArray, iArgArray, lineArray);
     displayArrayInfo(tempArray);
 
     return 0;
 }
 
-void populateArray(string fileLoaction, array<double, SIZE>& lArray, array<string, SIZE>& iArgArray){
+void populateArray(string fileLoaction, array<double, SIZE>& tArray, array<string, SIZE>& iArgArray, array<int, SIZE>& lArray){
     ifstream inputFile;
     string text;
     
     inputFile.open(fileLoaction);
     if (inputFile.good()){
         static int i = 0;
+        static int j = 0;
         static int lineCount = 1;
         static double nText = 0;
-        while (getline(inputFile, text) && i < lArray.size()){
+        while (getline(inputFile, text) && i < tArray.size()){
             // If Line is empty, skip to next iteration
             if (text.empty()){
                 lineCount++;
@@ -51,13 +54,15 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray, array<strin
                 nText = stod(text);
             } catch (const invalid_argument& e) {
                 if (lineCount < SIZE){
-                    iArgArray.at(lineCount) = text;
+                    iArgArray.at(j) = text;
+                    j++;
+                    lArray.at(j) = lineCount;
                 }
                 lineCount++;
                 continue;
             }
             // If line is valid, add to array
-            lArray.at(i) = nText;
+            tArray.at(i) = nText;
             lineCount++;
             i++;
         }
@@ -68,16 +73,16 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray, array<strin
     cout << endl;
 }
 
-void displayArrayInfo(array<double, SIZE>& lArray){
+void displayArrayInfo(array<double, SIZE>& tArray){
     // End function if array is empty
-    if (accumulate(lArray.begin(), lArray.end(), 0.0) == 0.0){
+    if (accumulate(tArray.begin(), tArray.end(), 0.0) == 0.0){
         cout << "!Array is empty!" << endl;
         return;
     }
 
     cout << "--- Temperature (F°) Array Data ---\n";
     static int i = 0;
-    for (double value : lArray) {
+    for (double value : tArray) {
         if (i % 7 == 0) {
             cout << "Week " << i / 7 + 1 << ": ";
         }
@@ -88,13 +93,14 @@ void displayArrayInfo(array<double, SIZE>& lArray){
         }
     };
     cout << "  Hottest day: " 
-        << *max_element(lArray.begin(), lArray.end()) << "°F" << endl;
+        << *max_element(tArray.begin(), tArray.end()) << "°F" << endl;
     cout << "  Coldest day: " 
-        << *min_element(lArray.begin(), lArray.end()) << "°F" << endl;
+        << *min_element(tArray.begin(), tArray.end()) << "°F" << endl;
     cout << "  Average temperature in the month: " 
-        << accumulate(lArray.begin(), lArray.end(), 0.0)/lArray.size() << "°F" << endl;
+        << accumulate(tArray.begin(), tArray.end(), 0.0)/tArray.size() << "°F" << endl;
 }
 
 void displayInvalidArray(array<string, SIZE>& invArray){
-    cout << "\n--- Invalid Data ---";
+    cout << "\n--- Invalid Data ---" << endl;
+
 }
