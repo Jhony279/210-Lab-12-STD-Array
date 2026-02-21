@@ -17,15 +17,15 @@ void sortArray(array<double, SIZE>&);
  * @return 
 */
 int main() {
-    array<double, SIZE> doubleArray;
+    array<double, SIZE> tempArray;
 
-    populateArray(FILE_LOCATION, doubleArray);
-    displayArrayInfo(doubleArray);
+    populateArray(FILE_LOCATION, tempArray);
+    displayArrayInfo(tempArray);
 
     return 0;
 }
 
-void populateArray(string fileLoaction, array<double, SIZE>& doubleArray){
+void populateArray(string fileLoaction, array<double, SIZE>& lArray){
     ifstream inputFile;
     string text;
     
@@ -33,7 +33,7 @@ void populateArray(string fileLoaction, array<double, SIZE>& doubleArray){
     if (inputFile.good()){
         int i = 0;
         double nText = 0;
-        while (getline(inputFile, text) && i < doubleArray.size()){
+        while (getline(inputFile, text) && i < lArray.size()){
             // If Line is empty, skip to next iteration
             if (text.empty()){
                 continue;
@@ -47,17 +47,21 @@ void populateArray(string fileLoaction, array<double, SIZE>& doubleArray){
                 continue;
             }
             // If line is valid, add to array
-            doubleArray.at(i) = nText;
-            // cout << i;
+            lArray.at(i) = nText;
             i++;
         }
     } else{
-        cout << "File was not found!"<< endl << endl;
+        cout << "File was not found!";
         return;
     }
+    cout << " " << endl;
 }
 
-void displayArrayInfo(array<double, SIZE>& doubleArray){
-    cout << "Unsorted array (Raw Data)\n";
-    for (double value : doubleArray) cout << value << endl;
+void displayArrayInfo(array<double, SIZE>& lArray){
+    cout << "--- Unsorted array (Raw Data) ---\n";
+    if (lArray.empty()){
+        cout << "Array is empty!" << endl;
+        return;
+    }
+    for (double value : lArray) cout << value << endl;
 }
