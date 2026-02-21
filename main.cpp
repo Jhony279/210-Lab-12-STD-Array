@@ -8,7 +8,7 @@
 using namespace std;
 
 const int SIZE = 30;
-const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.xt";
+const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
 
 void populateArray(string, array<double, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
@@ -20,7 +20,9 @@ void sortArray(array<double, SIZE>&);
 */
 int main() {
     array<double, SIZE> tempArray;
+    array<double, SIZE> iArgArray;
     fill(tempArray.begin(), tempArray.end(), 0.0);
+    fill(iArgArray.begin(), iArgArray.end(), 0.0);
 
     populateArray(FILE_LOCATION, tempArray);
     displayArrayInfo(tempArray);
@@ -35,10 +37,12 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
     inputFile.open(fileLoaction);
     if (inputFile.good()){
         static int i = 0;
+        static int lineCount = 0;
         static double nText = 0;
         while (getline(inputFile, text) && i < lArray.size()){
             // If Line is empty, skip to next iteration
             if (text.empty()){
+                lineCount++;
                 continue;
             }
             // If string cant convert to double, skip to next iteration
@@ -47,6 +51,8 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
             } catch (const invalid_argument& e) {
                 cout << "Invalid data inside file: " << fileLoaction << endl;
                 cout << " Invalid Data: " << text << endl;
+                cout << "Line Count: " << lineCount << endl;
+                lineCount++;
                 continue;
             }
             // If line is valid, add to array
@@ -67,7 +73,7 @@ void displayArrayInfo(array<double, SIZE>& lArray){
         return;
     }
 
-    cout << "--- Temperature Array Data ---\n";
+    cout << "--- Temperature (F°) Array Data ---\n";
     static int i = 0;
     for (double value : lArray) {
         if (i % 7 == 0) {
@@ -80,9 +86,9 @@ void displayArrayInfo(array<double, SIZE>& lArray){
         }
     };
     cout << "  Hottest day: " 
-        << *max_element(lArray.begin(), lArray.end()) << endl;
+        << *max_element(lArray.begin(), lArray.end()) << "°F" << endl;
     cout << "  Coldest day: " 
-        << *min_element(lArray.begin(), lArray.end()) << endl;
+        << *min_element(lArray.begin(), lArray.end()) << "°F" << endl;
     cout << "  Average temperature in the month: " 
-        << accumulate(lArray.begin(), lArray.end(), 0.0) / lArray.size() << endl;
+        << accumulate(lArray.begin(), lArray.end(), 0.0)/lArray.size() << "°F" << endl;
 }
