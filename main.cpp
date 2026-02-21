@@ -29,7 +29,9 @@ int main() {
     populateArray(FILE_LOCATION, tempArray, iArgArray, lineArray);
     displayArrayInfo(tempArray);
 
-    displayInvalidArray(iArgArray, lineArray);
+    for (string val : iArgArray) cout << val << " "; cout << endl;
+    for (int val : lineArray) cout << val << " "; cout << endl;
+    // displayInvalidArray(iArgArray, lineArray);
 
     return 0;
 }
@@ -54,10 +56,10 @@ void populateArray(string fileLoaction, array<double, SIZE>& tArray, array<strin
             try {
                 nText = stod(text);
             } catch (const invalid_argument& e) {
-                if (lineCount < SIZE){
+                if (lineCount <= tArray.size()){
                     iArgArray.at(j) = text;
-                    j++;
                     iArray.at(j) = lineCount;
+                    j++;
                 }
                 lineCount++;
                 continue;
@@ -106,6 +108,7 @@ void displayInvalidArray(array<string, SIZE>& invArray, array<int, SIZE>& iArray
     for (int i : iArray){
         cout << "  Improper Data: " << invArray.at(i) << " (At line " 
             << iArray.at(i) << ")"<< endl;
+        i++;
     }
 
 }
