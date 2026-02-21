@@ -20,6 +20,7 @@ void sortArray(array<double, SIZE>&);
 */
 int main() {
     array<double, SIZE> tempArray;
+    fill(tempArray.begin(), tempArray.end(), 0.0);
 
     populateArray(FILE_LOCATION, tempArray);
     displayArrayInfo(tempArray);
@@ -53,8 +54,7 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
             i++;
         }
     } else{
-        cout << "\n!File was not found!" << endl;
-        cout << endl;
+        cout << "\n!File was not found!" << endl << endl;
         return;
     }
     cout << endl;
@@ -62,12 +62,12 @@ void populateArray(string fileLoaction, array<double, SIZE>& lArray){
 
 void displayArrayInfo(array<double, SIZE>& lArray){
     // End function if array is empty
-    if (lArray.empty()){
-        cout << "Array is empty!" << endl;
+    if (accumulate(lArray.begin(), lArray.end(), 0.0) == 0.0){
+        cout << "!Array is empty!" << endl;
         return;
     }
 
-    cout << "--- Unsorted array (Raw Data) ---\n";
+    cout << "--- Temperature Array Data ---\n";
     static int i = 0;
     for (double value : lArray) {
         if (i % 7 == 0) {
