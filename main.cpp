@@ -8,12 +8,11 @@
 using namespace std;
 
 const int SIZE = 30;
-const int INV_ARG = 100;
 const string FILE_LOCATION = "C:\\Users\\lordj\\Downloads\\text.txt";
 
 void populateArray(string, array<double, SIZE>&, array<string, SIZE>&, array<int, SIZE>&);
 void displayArrayInfo(array<double, SIZE>&);
-void displayInvalidArray(array<string, SIZE>&);
+void displayInvalidArray(array<string, SIZE>&, array<int, SIZE>&);
 
 /**
  * @brief - Description of main
@@ -30,10 +29,12 @@ int main() {
     populateArray(FILE_LOCATION, tempArray, iArgArray, lineArray);
     displayArrayInfo(tempArray);
 
+    displayInvalidArray(iArgArray, lineArray);
+
     return 0;
 }
 
-void populateArray(string fileLoaction, array<double, SIZE>& tArray, array<string, SIZE>& iArgArray, array<int, SIZE>& lArray){
+void populateArray(string fileLoaction, array<double, SIZE>& tArray, array<string, SIZE>& iArgArray, array<int, SIZE>& iArray){
     ifstream inputFile;
     string text;
     
@@ -56,7 +57,7 @@ void populateArray(string fileLoaction, array<double, SIZE>& tArray, array<strin
                 if (lineCount < SIZE){
                     iArgArray.at(j) = text;
                     j++;
-                    lArray.at(j) = lineCount;
+                    iArray.at(j) = lineCount;
                 }
                 lineCount++;
                 continue;
@@ -81,14 +82,14 @@ void displayArrayInfo(array<double, SIZE>& tArray){
     }
 
     cout << "--- Temperature (F°) Array Data ---\n";
-    static int i = 0;
-    for (double value : tArray) {
-        if (i % 7 == 0) {
-            cout << "Week " << i / 7 + 1 << ": ";
+    for (int j : tArray) {
+        static int week = 0;
+        if (week % 7 == 0) {
+            cout << "Week " << week / 7 + 1 << ": ";
         }
-        cout << value << ", ";
-        i++;
-        if (i % 7 == 0) {
+        cout << j << ", ";
+        week++;
+        if (week % 7 == 0) {
             cout << "\n";
         }
     };
@@ -100,7 +101,11 @@ void displayArrayInfo(array<double, SIZE>& tArray){
         << accumulate(tArray.begin(), tArray.end(), 0.0)/tArray.size() << "°F" << endl;
 }
 
-void displayInvalidArray(array<string, SIZE>& invArray){
+void displayInvalidArray(array<string, SIZE>& invArray, array<int, SIZE>& iArray){
     cout << "\n--- Invalid Data ---" << endl;
+    for (int i : iArray){
+        cout << "  Improper Data: " << invArray.at(i) << " (At line " 
+            << iArray.at(i) << ")"<< endl;
+    }
 
 }
