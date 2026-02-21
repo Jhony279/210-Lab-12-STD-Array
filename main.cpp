@@ -29,9 +29,9 @@ int main() {
     populateArray(FILE_LOCATION, tempArray, iArgArray, lineArray);
     displayArrayInfo(tempArray);
 
-    for (string val : iArgArray) cout << val << " "; cout << endl;
-    for (int val : lineArray) cout << val << " "; cout << endl;
-    // displayInvalidArray(iArgArray, lineArray);
+    // for (string val : iArgArray) cout << val << " "; cout << endl;
+    // for (int val : lineArray) cout << val << " "; cout << endl;
+    displayInvalidArray(iArgArray, lineArray);
 
     return 0;
 }
@@ -84,8 +84,8 @@ void displayArrayInfo(array<double, SIZE>& tArray){
     }
 
     cout << "--- Temperature (F°) Array Data ---\n";
+    static int week = 0;
     for (int j : tArray) {
-        static int week = 0;
         if (week % 7 == 0) {
             cout << "Week " << week / 7 + 1 << ": ";
         }
@@ -95,7 +95,7 @@ void displayArrayInfo(array<double, SIZE>& tArray){
             cout << "\n";
         }
     };
-    cout << "  Hottest day: " 
+    cout << "\n  Hottest day: " 
         << *max_element(tArray.begin(), tArray.end()) << "°F" << endl;
     cout << "  Coldest day: " 
         << *min_element(tArray.begin(), tArray.end()) << "°F" << endl;
@@ -105,8 +105,12 @@ void displayArrayInfo(array<double, SIZE>& tArray){
 
 void displayInvalidArray(array<string, SIZE>& invArray, array<int, SIZE>& iArray){
     cout << "\n--- Invalid Data ---" << endl;
-    for (int i : iArray){
-        cout << "  Improper Data: " << invArray.at(i) << " (At line " 
+    static int i = 0;
+    for (string data : invArray){
+        if (data == ""){
+            continue;
+        }
+        cout << "  Improper Data: " << data << " (At line " 
             << iArray.at(i) << ")"<< endl;
         i++;
     }
