@@ -32,8 +32,15 @@ void populateArray(string fileLoaction, array<double, SIZE>& doubleArray){
     inputFile.open(fileLoaction);
     if (inputFile.good()){
         int i = 0;
-        while (getline(inputFile, text) && i < doubleArray.size()){
             double nText = stod(text);
+        while (getline(inputFile, text) && i < doubleArray.size()){
+            if (text.empty()){
+                continue;
+            } else{
+                try {
+
+                }
+            }
             doubleArray.at(i) = nText;
             cout << i;
             i++;
